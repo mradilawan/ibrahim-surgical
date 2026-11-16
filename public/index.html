@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ibrahim Surgical Store - Desktop System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Medical Shield -->
+            <path d="M12 2L4 5.5v6.2c0 5.2 3.4 10.1 8 11.3 4.6-1.2 8-6.1 8-11.3V5.5L12 2z" fill="rgba(255, 255, 255, 0.15)"/>
+            <!-- Medical / Surgical OT Cross -->
+            <path d="M12 7v8M8 11h8" stroke="#ffffff" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">IBRAHIM</div>
+          <div class="brand-subtitle">Surgical & OT Store</div>
+        </div>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item active" data-view="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span>Dashboard</span>
+        </li>
+        <li class="nav-item" data-view="sales">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Sales & Invoices</span>
+        </li>
+        <li class="nav-item" data-view="products">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          <span>Product List</span>
+          <span class="nav-badge danger" id="sidebar-low-stock" style="display:none;">0</span>
+        </li>
+        <li class="nav-item" data-view="stock-report">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>Stock Report</span>
+        </li>
+        <li class="nav-item" data-view="customers">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Dealers & Hospitals</span>
+        </li>
+        <li class="nav-item" data-view="purchases">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>Purchases & Stock In</span>
+        </li>
+        <li class="nav-item" data-view="expenses">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Expenses</span>
+        </li>
+        <li class="nav-item" data-view="reports">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          <span>Profit & Reports</span>
+        </li>
+        <li class="nav-item" data-view="settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Safe Backup & Settings</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="storage-pill" id="storage-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
+          <span id="storage-drive-label">Safe Drive: E:\</span>
+        </div>
+        <span style="color:#10b981; font-weight:700;">● Offline</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <header class="top-header">
+        <h1 class="page-title" id="page-title">
+          <span>Dashboard Overview</span>
+        </h1>
+        <div class="header-actions">
+          <div class="live-clock" id="top-live-clock">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="clock-display">Loading...</span>
+          </div>
+          <button class="btn btn-secondary" id="calc-toggle-btn" onclick="App.toggleCalculator()" title="Quick Calculator" style="display:flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="2" width="16" height="20" rx="2"/>
+              <line x1="8" x2="16" y1="6" y2="6"/>
+              <line x1="16" x2="16" y1="14" y2="14"/>
+              <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+            </svg>
+            <span>Calculator</span>
+          </button>
+          <button class="btn btn-secondary" onclick="App.loadView('stock-report')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <span>Stock Report</span>
+          </button>
+          <button class="btn btn-primary" onclick="App.openNewSaleModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+            <span>+ New Invoice</span>
+          </button>
+          <button class="btn btn-secondary" onclick="App.triggerManualBackup()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Safe Backup</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content-area" id="content-container">
+        <!-- Views will be dynamically loaded here by app.js -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Reusable Modal Container -->
+  <div class="modal-overlay" id="app-modal">
+    <div class="modal-content" id="modal-content-box">
+      <!-- Injected dynamically -->
+    </div>
+  </div>
+
+  <!-- Hidden Print Area for Invoices & Reports -->
+  <div id="print-area" style="display:none;"></div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container"></div>
+
+  <!-- Floating Quick Calculator Widget -->
+  <div id="calculator-widget" class="calc-widget" style="display:none;">
+    <div class="calc-header" id="calc-drag-handle">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+          <rect x="4" y="2" width="16" height="20" rx="2"/>
+          <line x1="8" y1="6" x2="16" y2="6"/>
+          <line x1="16" y1="14" x2="16" y2="14"/>
+          <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+        </svg>
+        <span style="font-weight:700; font-size:0.85rem; color:#fff;">Store Calculator</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <button class="calc-ctrl-btn" onclick="App.toggleCalculator()" title="Close Calculator">✕</button>
+      </div>
+    </div>
+    <div class="calc-screen">
+      <div class="calc-expr" id="calc-expr"></div>
+      <div class="calc-display" id="calc-display">0</div>
+    </div>
+    <div class="calc-keypad">
+      <button class="calc-btn calc-op-clear" onclick="App.calcAction('C')">C</button>
+      <button class="calc-btn calc-op-clear" onclick="App.calcAction('CE')">CE</button>
+      <button class="calc-btn calc-op" onclick="App.calcAction('%')">%</button>
+      <button class="calc-btn calc-op" onclick="App.calcAction('/')">÷</button>
+
+      <button class="calc-btn calc-num" onclick="App.calcAction('7')">7</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('8')">8</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('9')">9</button>
+      <button class="calc-btn calc-op" onclick="App.calcAction('*')">×</button>
+
+      <button class="calc-btn calc-num" onclick="App.calcAction('4')">4</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('5')">5</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('6')">6</button>
+      <button class="calc-btn calc-op" onclick="App.calcAction('-')">−</button>
+
+      <button class="calc-btn calc-num" onclick="App.calcAction('1')">1</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('2')">2</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('3')">3</button>
+      <button class="calc-btn calc-op" onclick="App.calcAction('+')">+</button>
+
+      <button class="calc-btn calc-op" onclick="App.calcAction('±')">±</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('0')">0</button>
+      <button class="calc-btn calc-num" onclick="App.calcAction('.')">.</button>
+      <button class="calc-btn calc-equal" onclick="App.calcAction('=')">=</button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

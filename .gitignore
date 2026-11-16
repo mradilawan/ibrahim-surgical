@@ -1,0 +1,10 @@
+node_modules/
+tools/
+backups/
+safe_data/backups/
+*.log
+Muhammad_Adil_Iqbal_CV.*
+cv_*.png
+run_silent.vbs
+Setup_AutoStart.bat
+Start_App.bat
