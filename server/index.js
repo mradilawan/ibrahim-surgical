@@ -10,6 +10,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Middleware to ensure database is ready on serverless environments
+let dbInitPromise = null;
+app.use(async (req, res, next) => {
+  if (!dbInitPromise) {
+    dbInitPromise = db.initDb();
+  }
+  try {
+    await dbInitPromise;
+    next();
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Database initialization error: ' + err.message });
+  }
+});
+
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
@@ -75,4 +89,8 @@ process.on('SIGTERM', () => {
   process.exit(0);
 });
 
-start();
+if (!process.env.VERCEL) {
+  start();
+}
+
+module.exports = app;

@@ -4,6 +4,20 @@ const path = require('path');
 
 // Safe storage location rule: strictly on E: drive (or D: if E: not found, NEVER C:)
 function resolveDataDir() {
+  if (process.env.VERCEL) {
+    const vercelData = '/tmp';
+    const seedDb = path.join(__dirname, '..', 'safe_data', 'ibrahim_surgical.sqlite');
+    const targetDb = path.join(vercelData, 'ibrahim_surgical.sqlite');
+    if (!fs.existsSync(targetDb) && fs.existsSync(seedDb)) {
+      try {
+        fs.copyFileSync(seedDb, targetDb);
+      } catch (err) {
+        console.warn('Could not seed Vercel database from safe_data:', err);
+      }
+    }
+    return vercelData;
+  }
+
   if (process.env.DATA_DIR) {
     if (!fs.existsSync(process.env.DATA_DIR)) {
       fs.mkdirSync(process.env.DATA_DIR, { recursive: true });
