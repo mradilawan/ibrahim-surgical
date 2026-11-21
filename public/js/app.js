@@ -144,6 +144,9 @@ const App = {
   currentChartMetric: 'sales',
   currentChartData: null,
 
+  // Auth & Session State
+  currentUser: null,
+
   // Calculator State
   calcState: { currentInput: '0', previousInput: null, operator: null, isResult: false, expression: '' },
   isCalcOpen: false,
@@ -152,8 +155,133 @@ const App = {
     this.bindNavigation();
     this.startClock();
     this.bindCalculatorKeyboard();
-    this.loadView('dashboard');
+    this.checkAuthStatus();
+  },
+
+  checkAuthStatus() {
+    const token = localStorage.getItem('ibrahim_auth_token') || sessionStorage.getItem('ibrahim_auth_token');
+    const userJson = localStorage.getItem('ibrahim_auth_user') || sessionStorage.getItem('ibrahim_auth_user');
+
+    if (token && userJson) {
+      try {
+        this.currentUser = JSON.parse(userJson);
+        this.showApp();
+        return;
+      } catch (e) {}
+    }
+
+    this.showLogin();
+  },
+
+  showLogin() {
+    const loginScreen = document.getElementById('login-screen');
+    const appContainer = document.getElementById('app-container');
+    if (loginScreen) loginScreen.style.display = 'flex';
+    if (appContainer) appContainer.style.display = 'none';
+
+    setTimeout(() => {
+      document.getElementById('login-username')?.focus();
+    }, 100);
+  },
+
+  showApp() {
+    const loginScreen = document.getElementById('login-screen');
+    const appContainer = document.getElementById('app-container');
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (appContainer) appContainer.style.display = 'flex';
+
+    const userDisp = document.getElementById('active-user-display');
+    if (userDisp && this.currentUser) {
+      userDisp.textContent = `User: ${this.currentUser.username}`;
+    }
+
+    this.loadView(this.currentView || 'dashboard');
     this.checkHealth();
+  },
+
+  async handleLogin(event) {
+    if (event) event.preventDefault();
+    const userInput = document.getElementById('login-username');
+    const passInput = document.getElementById('login-password');
+    const rememberBox = document.getElementById('login-remember');
+    const errBox = document.getElementById('login-error-box');
+    const submitBtn = document.getElementById('login-btn');
+
+    const username = (userInput?.value || '').trim();
+    const password = (passInput?.value || '').trim();
+
+    if (!username || !password) {
+      this.showLoginError('Please enter both User ID and Password.');
+      return;
+    }
+
+    if (errBox) errBox.style.display = 'none';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Verifying credentials...</span>';
+    }
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        const storage = rememberBox?.checked ? localStorage : sessionStorage;
+        storage.setItem('ibrahim_auth_token', data.token);
+        storage.setItem('ibrahim_auth_user', JSON.stringify(data.user));
+        this.currentUser = data.user;
+        this.showToast(`Welcome back, ${data.user.name || 'Admin'}!`, 'success');
+        this.showApp();
+      } else {
+        this.showLoginError(data.message || 'Invalid User ID or Password.');
+        if (passInput) {
+          passInput.value = '';
+          passInput.focus();
+        }
+      }
+    } catch (err) {
+      this.showLoginError('Connection error: ' + err.message);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Login to System</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>';
+      }
+    }
+  },
+
+  showLoginError(msg) {
+    const errBox = document.getElementById('login-error-box');
+    if (!errBox) return;
+    errBox.textContent = msg;
+    errBox.style.display = 'block';
+  },
+
+  handleLogout() {
+    if (!confirm('Are you sure you want to log out?')) return;
+    localStorage.removeItem('ibrahim_auth_token');
+    localStorage.removeItem('ibrahim_auth_user');
+    sessionStorage.removeItem('ibrahim_auth_token');
+    sessionStorage.removeItem('ibrahim_auth_user');
+    this.currentUser = null;
+    const userInput = document.getElementById('login-username');
+    const passInput = document.getElementById('login-password');
+    const errBox = document.getElementById('login-error-box');
+    if (userInput) userInput.value = '';
+    if (passInput) passInput.value = '';
+    if (errBox) errBox.style.display = 'none';
+    this.showLogin();
+    this.showToast('You have been logged out safely.', 'info');
+  },
+
+  togglePasswordVisibility() {
+    const passInput = document.getElementById('login-password');
+    if (!passInput) return;
+    passInput.type = passInput.type === 'password' ? 'text' : 'password';
   },
 
   // ----------------------------------------------------
